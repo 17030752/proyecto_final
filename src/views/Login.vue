@@ -1,7 +1,7 @@
 <template>
   <div class="container-fluid col-sm-4 text-center">
     <main class="form-signin">
-      <form>
+      <form v-on:submit.prevent="login">
        <i class="fas fa-sign-in-alt fa-5x"></i>
         <h1 class="h3 mb-3 fw-normal">Please sign in</h1>
 
@@ -12,6 +12,7 @@
             id="floatingInput"
             placeholder="name@example.com"
             required
+            
           />
           <label for="floatingInput">Email address</label>
         </div>
@@ -22,14 +23,9 @@
             id="floatingPassword"
             placeholder="Password"
             required
+         
           />
           <label for="floatingPassword">Password</label>
-        </div>
-
-        <div class="checkbox mb-3">
-          <label>
-            <input type="checkbox" value="remember-me" /> Remember me
-          </label>
         </div>
         <button class="w-100 btn btn-lg btn-primary" type="submit">
           Sign in
@@ -37,5 +33,26 @@
         <p class="mt-5 mb-3 text-muted">&copy; 2017–2021</p>
       </form>
     </main>
+    {{info.data.time}}
   </div>
 </template>
+<script>
+import axios from "axios";
+export default {
+  data() {
+    return {
+      info:null
+     
+    }
+  },
+  mounted() {
+    axios.get("https://api.coindesk.com/v1/bpi/currentprice.json")
+    .then(response => (this.info=response))
+  },
+}
+</script>
+
+
+<style scoped>
+
+</style>
